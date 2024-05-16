@@ -84,7 +84,7 @@ npm install express
 npm install axios
 ```
 
-python API 서버 구동을 위해 아래 코드를 복사하도록 합니다.
+Express 서버 구동을 위해 아래 코드를 복사하도록 합니다.
 ```
 cp /tmp/monitoring-course/sample/web/systemd/webapp.service /etc/systemd/system/
 ```
@@ -96,7 +96,7 @@ mkdir /etc/systemd/system/webapp.service.d
 
 해당 디렉토리에 다운 받은 `env.conf` 파일을 복사합니다.
 ```
-cp /tmp/monitoring-course/sample/application/systemd/webapp.service /etc/systemd/system/webapp.service.d/
+cp /tmp/monitoring-course/sample/web/systemd/env.conf /etc/systemd/system/webapp.service.d/
 ```
 
 복사한 env.conf 파일을 열어 값을 환경에 맞게 수정합니다.  
