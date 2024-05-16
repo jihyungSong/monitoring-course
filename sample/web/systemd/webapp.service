@@ -1,0 +1,14 @@
+[Unit]
+Description=Web Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/web
+ExecStart=/usr/bin/node /root/web/server.js
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

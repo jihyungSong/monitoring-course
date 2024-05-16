@@ -185,11 +185,89 @@ root 로 접속한 상태로 아래 명령을 수행하여 git 을 설치하도�
 yum install git
 ```
 
-git 설치가 완료되었다면 
+파이썬 패키지 설치를 위해 pip 도 설치하도록 합니다.
+```
+yum install python3-pip
+```
+
+git 과 pip 설치가 완료되었다면 아래 경로로 이동하여, git clone 을 통해 sample 코드를 다운로드 받습니다.
+
+```
+cd /tmp
+git clone https://github.com/jihyungSong/monitoring-course.git
+```
+
+`/tmp` 디렉토리에 샘플 코드를 다운로드 받았다면, application 코드를 `/root` 디렉토리로 복사 하도록 합니다. 
+
+```
+cd /tmp/monitoring-course/sample
+cp -rf application /root/
+```
+
+`application` 디렉토리로 이동하여, python 실행을 위한 패키지를 설치하도록 합니다. 
+
+```
+cd application
+pip3 install -r pip3_requirements.txt
+```
+
+python API 서버 구동을 위해 아래 코드를 복사하도록 합니다.
+```
+cp /tmp/monitoring-course/sample/application/systemd/fastapi.service /etc/systemd/system/
+```
+
+API 서버 구동시 필요한 환경 변수 설정을 위해 아래 폴더를 추가합니다.  
+```
+mkdir /etc/systemd/system/fastapi.service.d
+```
+
+해당 디렉토리에 다운 받은 `env.conf` 파일을 복사합니다.
+```
+cp /tmp/monitoring-course/sample/application/systemd/fastapi.service /etc/systemd/system/fastapi.service.d/
+```
+
+복사한 env.conf 파일을 열어 값을 환경에 맞게 수정합니다.
+
+```
+[Service]
+Environment="DB_HOST={RDS-ENDPOINT-URL}"
+Environment="DB_PASSWORD={DBPASSWORD}"
+Environment="DB_NAME={DBNAME}"
+```
+
 
 ## 7. Application 테스트
 
+API 서비스를 구동하도록 합니다.
 
+```
+systemctl start fastapi
+```
+
+fastapi 서비스가 정상 동작중인지 확인합니다. 
+Active (running) 상태임을 확인합니다. 
+```
+> systemctl status fastapi
+
+● fastapi.service - FastAPI Service
+     Loaded: loaded (/etc/systemd/system/fastapi.service; disabled; preset: disabled)
+    Drop-In: /etc/systemd/system/fastapi.service.d
+             └─env.conf
+     Active: active (running) since Wed 2024-05-15 05:18:43 UTC; 3s ago
+```
+
+curl 을 통해 API 를 직접 호출해 봅니다.
+```
+curl http://localhost:8000/transactions
+
+[{"value":100.0,"description":"test","transaction_id":1}]
+```
+
+정상 응답이 확인 되었다면, 해당 서비스를 enable 하도록 설정합니다.
+
+```
+systemctl enable fastapi
+```
 ---
 
 Application 인스턴스 구성 및 데이터베이스 설정이 완료 되었습니다.
