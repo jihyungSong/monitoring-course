@@ -3,7 +3,7 @@
 Application 과 Web 서버에 대한 모니터링 메트릭 수집을 담당할 Telegraf 를 각 EC2 인스턴스에 구성하도록 합니다.  
 아래 순서로 진행됩니다.
 
-1. InfluxDB 인스턴스 접속
+1. Application 인스턴스 접속
 2. Telegraf 설치
 3. Telegraf 설정
 4. AMI 이미지 생성
