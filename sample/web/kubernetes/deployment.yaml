@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: webapp
+  labels:
+    app: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: 909622006439.dkr.ecr.us-east-1.amazonaws.com/web:0.0.1
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: web-env
