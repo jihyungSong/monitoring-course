@@ -79,7 +79,7 @@ cp -rf web /root/
 `web` 디렉토리로 이동하여, express 실행을 위한 패키지를 설치하도록 합니다. 
 
 ```
-cd web/src
+cd web/source
 npm install express
 npm install axios
 ```

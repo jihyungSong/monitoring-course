@@ -208,7 +208,7 @@ cp -rf application /root/
 
 ```
 cd application
-pip3 install -r pip3_requirements.txt
+pip3 install -r pkg/pip_requirements.txt
 ```
 
 python API 서버 구동을 위해 아래 코드를 복사하도록 합니다.

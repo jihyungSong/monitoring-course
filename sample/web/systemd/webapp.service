@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/root/web
+WorkingDirectory=/root/web/source
 ExecStart=/usr/bin/node /root/web/server.js
 Restart=always
 RestartSec=10
