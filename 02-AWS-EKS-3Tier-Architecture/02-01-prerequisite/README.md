@@ -4,7 +4,8 @@
 1. ECR 레포지토리 생성
 2. Cloud9 환경 구성
 3. 실습 컨테이너 이미지 생성
-
+4. RDS Security Group 규칙 수정
+5. eksctl 설치
 
 ---
 ## 1. ECR 레포지토리 생성
@@ -115,6 +116,44 @@ docker push {어카운트}.dkr.ecr.{리전}.amazonaws.com/web:0.0.1
 ```
 
 이미지가 ECR 에 잘 업로드 되었는지 AWS 콘솔에서 최종 확인 하도록 합니다. 
+
+
+## 4. RDS Security Group 규칙 수정
+
+EKS 클러스터에 배포된 Application 파드에서 RDS 데이터베이스에 접근하기 위해서는 RDS 에 적용되어 있는 Security Group 의 규칙을 수정해주어야 합니다.   
+
+`EC2` 에서 `보안 그룹` 메뉴로 이동 하여, `db-instance-sg` 보안 그룹을 선택 합니다.  
+`db-instance-sg` 의 하단 탭에 `인바운드 규칙`을 선택 하고, `인바운드 규칙 편집`을 클릭하여 규칙을 추가하도록 합니다.  
+ 
+규칙 추가 버튼을 누른 후, 아래 정보를 설정 합니다.  
+
+- 유형: `MYSQL/Aurora`
+- 프로토콜: TCP
+- 포트범위: 3306
+- 소스: `10.10.0.0/16`
+
+위와 같이 설정 후, 규칙을 저장하도록 합니다. 
+
+## 5. eksctl 설치
+
+EKS 를 CLI 로 컨트롤 하기 위해 eksctl 이라는 명령어를 설치하도록 합니다.  
+eksctl 의 최신 릴리즈를 다운로드하고 압축을 해제 합니다.  
+
+```
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+```
+
+다운로드 받은 eksctl 바이너리 파일을 이동합니다.  
+
+```
+sudo mv /tmp/eksctl /usr/local/bin
+```
+
+eksctl 명령이 제대로 실행되는지 확인 합니다.  
+
+```
+eksctl version
+```
 
 ---
 

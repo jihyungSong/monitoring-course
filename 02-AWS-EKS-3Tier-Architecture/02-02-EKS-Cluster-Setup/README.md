@@ -46,7 +46,7 @@ IAM 서비스로 이동하여, 역할 메뉴에서 역할 생성 버튼을 클�
 - 노드 IAM 역할: 위에서 생성한 `AmazonEKSNodeRole` 지정
 - AMI 유형: Amazon Linux 2 (AL2_x86_64)
 - 용량 유형: `Spot` 
-- 인스턴스 유형: `t3.micro`
+- 인스턴스 유형: `t3.medium`
 - 디스크 크기: `20` GiB
 - 원하는 크기: 1 노드
 - 최소 크기: 0 노드
