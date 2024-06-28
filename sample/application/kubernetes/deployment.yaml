@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi
+  namespace: webapp
+  labels:
+    app: fastapi
+spec:
+  selector:
+    matchLabels:
+      app: fastapi
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: fastapi
+    spec:
+      containers:
+      - name: fastapi
+        image: 909622006439.dkr.ecr.us-east-1.amazonaws.com/app:0.0.1
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: app-env
