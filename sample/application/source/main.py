@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from database import Engineconn
 from models import Transaction
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 
 
 app = FastAPI()
@@ -28,8 +29,13 @@ async def create_transaction(transaction_create: TransactionCreate):
 
 @app.get("/health")
 async def health_check():
-    return {"status": "ok"}
-
+    try:
+        session.query(Transaction).first()
+        return {"status": "ok"}
+    except SQLAlchemyError:
+        raise HTTPException(status_code=500, detail="Database connection error")
+    finally:
+        session.close()
 
 @app.get("/transaction/{transaction_id}")
 async def get_transaction(transaction_id: int):
