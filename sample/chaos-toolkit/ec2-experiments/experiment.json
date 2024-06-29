@@ -1,0 +1,76 @@
+{
+    "version": "1.0.0",
+    "title": "Terminate instances in Web and Application Auto Scaling Groups",
+    "description": "Terminate instances in two Auto Scaling Groups to observe recovery behavior",
+    "tags": ["aws", "ec2", "auto-scaling"],
+    "configuration": {
+        "aws_region": "us-east-1"       # CHECK YOUR REGION
+    },
+    "steady-state-hypothesis": {
+        "title": "ASG has exactly 1 instance each",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "count_instances_in_web_asg",
+                "tolerance": 1,
+                "provider": {
+                    "type": "python",
+                    "module": "chaosaws.ec2.probes",
+                    "func": "count_instances",
+                    "arguments": {
+                        "filters": [
+                            {
+                                "Name": "tag:aws:autoscaling:groupName",
+                                "Values": ["web-asg"]    # CHECK YOUR WEB TIER AUTOSCALING GROUP
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "type": "probe",
+                "name": "count_instances_in_app_asg",
+                "tolerance": 1,
+                "provider": {
+                    "type": "python",
+                    "module": "chaosaws.ec2.probes",
+                    "func": "count_instances",
+                    "arguments": {
+                        "filters": [
+                            {
+                                "Name": "tag:aws:autoscaling:groupName",
+                                "Values": ["application-asg"]   # CHECK YOUR APP TIER AUTOSCALING GROUP
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "type": "action",
+            "name": "terminate_instance_in_web_asg",
+            "provider": {
+                "type": "python",
+                "module": "chaosaws.ec2.actions",
+                "func": "terminate_instance",
+                "arguments": {
+                    "instance_id": "[EC2-INSTANCE-UUID]"     # CHECK YOUR WEB TIER EC2 INSTANCE FOR DELETION
+                }
+            }
+        },
+        {
+            "type": "action",
+            "name": "terminate_instance_in_app_asg",
+            "provider": {
+                "type": "python",
+                "module": "chaosaws.ec2.actions",
+                "func": "terminate_instance",
+                "arguments": {
+                    "instance_id": "[EC2-INSTANCE-UUID]"    # CHECK YOUR APP TIER EC2 INSTANCE FOR DELETION
+                }
+            }
+        }
+    ]
+}
