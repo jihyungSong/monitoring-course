@@ -52,7 +52,7 @@ EC2 인스턴스 필터에서 `태그` 항목 중 `aws:autoscaling:groupName`=`w
 ```
 #!/bin/bash
 
-URL="http://web-alb-1604759033.us-east-1.elb.amazonaws.com/"
+URL="http://{ALB-DNS-주소}/"
 
 while true; do
   echo "REQUEST"
