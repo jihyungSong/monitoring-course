@@ -5,7 +5,8 @@
 2. Cloud9 환경 구성
 3. 실습 컨테이너 이미지 생성
 4. RDS Security Group 규칙 수정
-5. eksctl 설치
+5. kubectl 설치
+6. eksctl 설치
 
 ---
 ## 1. ECR 레포지토리 생성
@@ -134,7 +135,34 @@ EKS 클러스터에 배포된 Application 파드에서 RDS 데이터베이스에
 
 위와 같이 설정 후, 규칙을 저장하도록 합니다. 
 
-## 5. eksctl 설치
+
+## 5. kubectl 설치
+
+kubectl 바이너리 파일을 다운로드 받습니다. 
+
+```
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.3/2024-04-19/bin/linux/amd64/kubectl
+```
+
+다운로드 받은 kubectl 명령 파일에 실행 권한을 부여 합니다.  
+
+```
+chmod +x ./kubectl
+```
+
+kubectl 명령어를 실행 파일 관련 디렉토리로 이동합니다. 
+
+```
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+```
+
+kubectl 명령이 제대로 동작하는지 확인 합니다. 
+
+```
+kubectl version --client
+```
+
+## 6. eksctl 설치
 
 EKS 를 CLI 로 컨트롤 하기 위해 eksctl 이라는 명령어를 설치하도록 합니다.  
 eksctl 의 최신 릴리즈를 다운로드하고 압축을 해제 합니다.  
