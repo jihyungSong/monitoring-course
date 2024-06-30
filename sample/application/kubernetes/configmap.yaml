@@ -4,9 +4,6 @@ metadata:
   name: app-env
   namespace: webapp
 data: 
-  #DB_HOST={RDS-ENDPOINT-URL}
-  #DB_PASSWORD={DBPASSWORD}
-  #DB_NAME={DBNAME}
-  DB_HOST: dbcluster-01.cluster-cpmerra2d00o.us-east-1.rds.amazonaws.com
-  DB_NAME: monitoring
-  DB_PASSWORD: x6xDYQuvu2
+  DB_HOST={RDS-ENDPOINT-URL}
+  DB_PASSWORD={DBPASSWORD}
+  DB_NAME={DBNAME}

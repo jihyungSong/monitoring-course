@@ -10,8 +10,8 @@ metadata:
     alb.ingress.kubernetes.io/load-balancer-name: webapp-alb
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
     alb.ingress.kubernetes.io/success-codes: "200"
-    alb.ingress.kubernetes.io/security-groups: sg-0d2326c606e3ff4f8
-    alb.ingress.kubernetes.io/subnets: subnet-0f7a27e0e9df45cca,subnet-0015261e7902d3edb
+    alb.ingress.kubernetes.io/security-groups: {ALB_SECURITY_GROUP_ID}
+    alb.ingress.kubernetes.io/subnets: {PUBLIC_SUBNET_ID},{PUBLIC_SUBNET_ID}
   name: webapp-alb
   namespace: webapp
 spec:

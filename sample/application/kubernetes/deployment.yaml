@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: fastapi
-        image: 909622006439.dkr.ecr.us-east-1.amazonaws.com/app:0.0.1
+        image: {ACCOUNT_ID}.dkr.ecr.{REGION}.amazonaws.com/app:0.0.1
         ports:
         - containerPort: 8000
         envFrom:
