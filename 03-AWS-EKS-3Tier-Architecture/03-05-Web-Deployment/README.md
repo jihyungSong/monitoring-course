@@ -148,3 +148,64 @@ app    ClusterIP   172.20.254.195   <none>        8000/TCP   50m
 web    ClusterIP   172.20.223.147   <none>        3000/TCP   8m
 ```
 
+
+## 4. Ingress 생성
+
+Web pod 를 외부에서 ALB 로 접근하기 위해 Ingress 를 생성하도록 합니다.  
+`ingress.yaml` 매니페스트 파일을 확인 후, 내 환경에 맞게 일부를 수정합니다.   
+
+annotations 에서 alb.ingress.kubernetes.io/subnets 에 VPC 의 Public Subnet 두개를 지정해 주도록 합니다.  
+ALB 가 Public Subnet 에 배치되어야 인터넷 접근이 가능하기 때문입니다.  
+
+
+
+```
+cat ingress.yaml
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+    alb.ingress.kubernetes.io/load-balancer-name: webapp-alb
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/success-codes: "200"
+    alb.ingress.kubernetes.io/subnets: {PUBLIC_SUBNET_ID},{PUBLIC_SUBNET_ID}    # CHECK YOUR PUBLIC SUBNETS in YOUR VPC
+  name: webapp-alb
+  namespace: webapp
+spec:
+  ingressClassName: alb
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: web
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+```
+
+`kubectl` 명령으로 `webapp-alb` ingress 를 생성합니다.  
+```
+kubectl apply -f ingress.yaml
+```
+
+잘 생성되었는지 `kubectl get` 명령을 통해 확인 합니다. 
+```
+kubectl get ingress -n webapp
+
+NAME         CLASS   HOSTS   ADDRESS                                            PORTS   AGE
+webapp-alb   alb     *       webapp-alb-xxxx.REGION.elb.amazonaws.com   80      5m20sm
+```
+
+Ingress 리소스가 생성되면, AWS ALB 가 배포되기 시작합니다.  
+AWS Console 에서 로드밸런서가 정상적으로 생성되는지 확인 합니다.  
+리스너 규칙과 대상 그룹을 통해, 최종적으로 pod 와 잘 연결되는지 확인 하도록 합니다.  
+
+pod 연결 상태가 Healthy 상태인 것으로 확인되면, ALB 의 DNS 를 통해 웹 브라우저에서 정상 접속을 확인 하도록 합니다.  

@@ -45,12 +45,12 @@ IAM 정책 생성에 성공하였다면, eksctl 을 사용하여 EKS 클러스�
 
 ```
 eksctl create iamserviceaccount \
-  --cluster=monitoring-course-cluster \
-  --namespace=kube-system \
-  --name=aws-load-balancer-controller \
-  --role-name AmazonEKSLoadBalancerControllerRole \
-  --attach-policy-arn=arn:aws:iam::{어카운트ID}:policy/AWSLoadBalancerControllerIAMPolicy \
-  --approve
+--cluster=<cluster-name> \
+--namespace=kube-system \
+--name=aws-load-balancer-controller \
+--attach-policy-arn=arn:aws:iam::<AWS_ACCOUNT_ID>:policy/AWSLoadBalancerControllerIAMPolicy \
+--override-existing-serviceaccounts \
+--approve
 ```
 
 생성에 성공하였다면, kube-system 네임스페이스에 aws-load-balancer-controller 라는 service account 가 생성됨이 확인 가능합니다.   
