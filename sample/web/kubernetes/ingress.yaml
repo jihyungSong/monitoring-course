@@ -3,14 +3,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTP": 3000}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/healthcheck-path: /health
     alb.ingress.kubernetes.io/load-balancer-name: webapp-alb
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
     alb.ingress.kubernetes.io/success-codes: "200"
-    alb.ingress.kubernetes.io/security-groups: {ALB_SECURITY_GROUP_ID}
     alb.ingress.kubernetes.io/subnets: {PUBLIC_SUBNET_ID},{PUBLIC_SUBNET_ID}
   name: webapp-alb
   namespace: webapp
@@ -23,6 +22,6 @@ spec:
           service:
             name: web
             port:
-              name: web-port
+              number: 3000
         path: /
         pathType: Prefix
