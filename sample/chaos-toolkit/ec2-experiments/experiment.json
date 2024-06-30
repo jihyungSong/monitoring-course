@@ -1,47 +1,76 @@
 {
     "version": "1.0.0",
-    "title": "Terminate instances in Web and Application Auto Scaling Groups",
-    "description": "Terminate instances in two Auto Scaling Groups to observe recovery behavior",
-    "tags": ["aws", "ec2", "auto-scaling"],
+    "title": "Terminate instances in Web and Application Auto Scaling Groups and Failover RDS Instance",
+    "description": "Terminate instances in two Auto Scaling Groups to observe recovery behavior and Failver RDS Instance",
+    "tags": ["aws", "ec2", "auto-scaling", "rds"],
     "configuration": {
-        "aws_region": "us-east-1"       # CHECK YOUR REGION
+        "aws_region": "us-east-1"           # CHECK YOUR REGION
     },
     "steady-state-hypothesis": {
-        "title": "ASG has exactly 1 instance each",
+        "title": "ASG and RDS cluster are in healthy state",
         "probes": [
             {
+                "name": "desired-web-asg-equals-healthy",
                 "type": "probe",
-                "name": "count_instances_in_web_asg",
+                "tolerance": 1,
+                "provider": {
+                  "type": "python",
+                  "module": "chaosaws.asg.probes",
+                  "func": "desired_equals_healthy",
+                  "arguments": {
+                    "asg_names": ["web-asg"]    # CHECK YOUR WEB AUTO SCALING GROUP
+                  }
+                }
+            },
+            {
+                "name": "desired-application-asg-equals-healthy",
+                "type": "probe",
+                "tolerance": 1,
+                "provider": {
+                  "type": "python",
+                  "module": "chaosaws.asg.probes",
+                  "func": "desired_equals_healthy",
+                  "arguments": {
+                    "asg_names": ["application-asg"]    # CHECK YOUR APPLICATION AUTO SCALING GROUP
+                  }
+                }
+            },
+            {
+                "type": "probe",
+                "name": "check-web-alb-target-health",
                 "tolerance": 1,
                 "provider": {
                     "type": "python",
-                    "module": "chaosaws.ec2.probes",
-                    "func": "count_instances",
+                    "module": "chaosaws.elbv2.probes",
+                    "func": "all_targets_healthy",
                     "arguments": {
-                        "filters": [
-                            {
-                                "Name": "tag:aws:autoscaling:groupName",
-                                "Values": ["web-asg"]    # CHECK YOUR WEB TIER AUTOSCALING GROUP
-                            }
-                        ]
+                      "tg_names": ["web-target-group"]  # CHECK YOUR WEB TARGET GROUP
                     }
                 }
             },
             {
                 "type": "probe",
-                "name": "count_instances_in_app_asg",
+                "name": "check-application-alb-target-health",
                 "tolerance": 1,
                 "provider": {
                     "type": "python",
-                    "module": "chaosaws.ec2.probes",
-                    "func": "count_instances",
+                    "module": "chaosaws.elbv2.probes",
+                    "func": "all_targets_healthy",
                     "arguments": {
-                        "filters": [
-                            {
-                                "Name": "tag:aws:autoscaling:groupName",
-                                "Values": ["application-asg"]   # CHECK YOUR APP TIER AUTOSCALING GROUP
-                            }
-                        ]
+                      "tg_names": ["application-target-group"]  # CHECK YOUR APPLICATION TARGET GROUP
+                    }
+                }
+            },
+            {
+                "type": "probe",
+                "name": "check_rds_cluster_status",
+                "tolerance": "available",
+                "provider": {
+                    "type": "python",
+                    "module": "chaosaws.rds.probes",
+                    "func": "cluster_status",
+                    "arguments": {
+                        "cluster_id": "dbcluster-01"    # CHECK YOUR RDS CLUSTER ID
                     }
                 }
             }
@@ -49,26 +78,41 @@
     },
     "method": [
         {
+            "name": "terminate-random-instances-in-web-asg",
             "type": "action",
-            "name": "terminate_instance_in_web_asg",
             "provider": {
-                "type": "python",
-                "module": "chaosaws.ec2.actions",
-                "func": "terminate_instance",
-                "arguments": {
-                    "instance_id": "[EC2-INSTANCE-UUID]"     # CHECK YOUR WEB TIER EC2 INSTANCE FOR DELETION
-                }
+              "type": "python",
+              "module": "chaosaws.asg.actions",
+              "func": "terminate_random_instances",
+              "arguments": {
+                "instance_count": 1,
+                "asg_names": ["web-sg"]             # CHECK YOUR WEB AUTO SCALING GROUP
+              }
+            }
+        },
+        {
+            "name": "terminate-random-instances-in-application-asg",
+            "type": "action",
+            "provider": {
+              "type": "python",
+              "module": "chaosaws.asg.actions",
+              "func": "terminate_random_instances",
+              "arguments": {
+                "instance_count": 1,
+                "asg_names": ["application-asg"]    # CHECK YOUR APPLICATION AUTO SCALING GROUP
+              }
             }
         },
         {
             "type": "action",
-            "name": "terminate_instance_in_app_asg",
+            "name": "failover_rds_cluster",
             "provider": {
                 "type": "python",
-                "module": "chaosaws.ec2.actions",
-                "func": "terminate_instance",
+                "module": "chaosaws.rds.actions",
+                "func": "failover_db_cluster",
                 "arguments": {
-                    "instance_id": "[EC2-INSTANCE-UUID]"    # CHECK YOUR APP TIER EC2 INSTANCE FOR DELETION
+                    "db_cluster_identifier": "dbcluster-01",                    # CHECK YOUR RDS CLUSTER ID
+                    "target_db_instance_identifier": "dbcluster-01-instance-1"  # CHECK YOUR RDS INSTANCE ID
                 }
             }
         }
