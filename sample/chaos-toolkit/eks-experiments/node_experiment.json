@@ -1,8 +1,8 @@
 {
     "version": "1.0.0",
-    "title": "Terminate web and application pods",
-    "description": "Terminate web and application pods to observe recovery behavior",
-    "tags": ["kubernetes", "eks", "pods", "chaos"],
+    "title": "Terminate web and application pods and delete a node",
+    "description": "Terminate web and application pods and delete a node to observe recovery behavior",
+    "tags": ["kubernetes", "eks", "pods", "nodes", "chaos"],
     "configuration": {
         "kubernetes": {
             "namespace": "webapp"
@@ -51,8 +51,8 @@
                 "func": "terminate_pods",
                 "arguments": {
                     "label_selector": "app=web",
-                    "name_pattern": "web",
-                    "ns": "webapp"
+                    "ns": "webapp",
+                    "all": true
                 }
             }
         },
@@ -65,8 +65,20 @@
                 "func": "terminate_pods",
                 "arguments": {
                     "label_selector": "app=fastapi",
-                    "name_pattern": "fastapi",
-                    "ns": "webapp"
+                    "ns": "webapp",
+                    "all": true
+                }
+            }
+        },
+        {
+            "type": "action",
+            "name": "drain_one_node",
+            "provider": {
+                "type": "python",
+                "module": "chaosk8s.node.actions",
+                "func": "drain_nodes",
+                "arguments": {
+                    "count": 1
                 }
             }
         }
