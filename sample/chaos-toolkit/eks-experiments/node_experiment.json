@@ -1,0 +1,74 @@
+{
+    "version": "1.0.0",
+    "title": "Terminate web and application pods",
+    "description": "Terminate web and application pods to observe recovery behavior",
+    "tags": ["kubernetes", "eks", "pods", "chaos"],
+    "configuration": {
+        "kubernetes": {
+            "namespace": "webapp"
+        }
+    },
+    "steady-state-hypothesis": {
+        "title": "All web and application pods are running",
+        "probes": [
+            {
+                "name": "web_pods_available",
+                "type": "probe",
+                "tolerance": 2,
+                "provider": {
+                    "type": "python",
+                    "module": "chaosk8s.pod.probes",
+                    "func": "count_pods",
+                    "arguments": {
+                        "label_selector": "app=web",
+                        "ns": "webapp"
+                    }
+                }
+            },
+            {
+                "name": "application_pods_available",
+                "type": "probe",
+                "tolerance": 2,
+                "provider": {
+                    "type": "python",
+                    "module": "chaosk8s.pod.probes",
+                    "func": "count_pods",
+                    "arguments": {
+                        "label_selector": "app=fastapi",
+                        "ns": "webapp"
+                    }
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "type": "action",
+            "name": "terminate_web_pod",
+            "provider": {
+                "type": "python",
+                "module": "chaosk8s.pod.actions",
+                "func": "terminate_pods",
+                "arguments": {
+                    "label_selector": "app=web",
+                    "name_pattern": "web",
+                    "ns": "webapp"
+                }
+            }
+        },
+        {
+            "type": "action",
+            "name": "terminate_application_pod",
+            "provider": {
+                "type": "python",
+                "module": "chaosk8s.pod.actions",
+                "func": "terminate_pods",
+                "arguments": {
+                    "label_selector": "app=fastapi",
+                    "name_pattern": "fastapi",
+                    "ns": "webapp"
+                }
+            }
+        }
+    ]
+}
