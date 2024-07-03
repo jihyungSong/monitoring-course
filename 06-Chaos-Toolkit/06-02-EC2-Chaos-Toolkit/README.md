@@ -7,6 +7,7 @@
 ## 1. Chaos Toolkit Experimental 파일 수정
 
 sample/chaos-tookit/ec2-experiments 디렉토리로 이동하여, experiment.json 파일을 내 환경에 맞게 수정합니다.  
+확인이 필요한 부분은 // 주석을 통해 코멘트 해놓았습니다.  
 
 ## 2. Chaos 실험 시작
 
