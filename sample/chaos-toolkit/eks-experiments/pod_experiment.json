@@ -5,7 +5,7 @@
     "tags": ["kubernetes", "eks", "pods", "chaos"],
     "configuration": {
         "kubernetes": {
-            "namespace": "webapp"       // CHECK YOUR NAMESPACE
+            "namespace": "webapp"
         }
     },
     "steady-state-hypothesis": {
@@ -20,8 +20,9 @@
                     "module": "chaosk8s.pod.probes",
                     "func": "count_pods",
                     "arguments": {
-                        "label_selector": "app=web",    // CHECK YOUR POD LABEL
-                        "ns": "webapp"                  // CHECK YOUR NAMESPACE
+                        "label_selector": "app=web",
+                        "phase": "Running",
+                        "ns": "webapp"
                     }
                 }
             },
@@ -34,8 +35,9 @@
                     "module": "chaosk8s.pod.probes",
                     "func": "count_pods",
                     "arguments": {
-                        "label_selector": "app=fastapi",    // CHECK YOUR POD LABEL
-                        "ns": "webapp"                      // CHECK YOUR NAMESPACE
+                        "label_selector": "app=fastapi",
+                        "phase": "Running",
+                        "ns": "webapp"
                     }
                 }
             }
@@ -50,10 +52,13 @@
                 "module": "chaosk8s.pod.actions",
                 "func": "terminate_pods",
                 "arguments": {
-                    "label_selector": "app=web",            // CHECK YOUR POD LABEL
+                    "label_selector": "app=web",
                     "name_pattern": "web",
-                    "ns": "webapp"                          // CHECK YOUR NAMESPACE
+                    "ns": "webapp"
                 }
+            },
+            "pauses": {
+                "after": 10
             }
         },
         {
@@ -64,10 +69,13 @@
                 "module": "chaosk8s.pod.actions",
                 "func": "terminate_pods",
                 "arguments": {
-                    "label_selector": "app=fastapi",        // CHECK YOUR POD LABEL
+                    "label_selector": "app=fastapi",
                     "name_pattern": "fastapi",
-                    "ns": "webapp"                          // CHECK YOUR NAMESPACE
+                    "ns": "webapp"
                 }
+            },
+            "pauses": {
+                "after": 20
             }
         }
     ]
