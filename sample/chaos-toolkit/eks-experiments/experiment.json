@@ -5,7 +5,7 @@
     "tags": ["kubernetes", "eks", "pods", "chaos"],
     "configuration": {
         "kubernetes": {
-            "namespace": "webapp"
+            "namespace": "webapp"       // CHECK YOUR NAMESPACE
         }
     },
     "steady-state-hypothesis": {
@@ -20,8 +20,8 @@
                     "module": "chaosk8s.pod.probes",
                     "func": "count_pods",
                     "arguments": {
-                        "label_selector": "app=web",
-                        "ns": "webapp"
+                        "label_selector": "app=web",    // CHECK YOUR POD LABEL
+                        "ns": "webapp"                  // CHECK YOUR NAMESPACE
                     }
                 }
             },
@@ -34,8 +34,8 @@
                     "module": "chaosk8s.pod.probes",
                     "func": "count_pods",
                     "arguments": {
-                        "label_selector": "app=fastapi",
-                        "ns": "webapp"
+                        "label_selector": "app=fastapi",    // CHECK YOUR POD LABEL
+                        "ns": "webapp"                      // CHECK YOUR NAMESPACE
                     }
                 }
             }
@@ -50,9 +50,9 @@
                 "module": "chaosk8s.pod.actions",
                 "func": "terminate_pods",
                 "arguments": {
-                    "label_selector": "app=web",
+                    "label_selector": "app=web",            // CHECK YOUR POD LABEL
                     "name_pattern": "web",
-                    "ns": "webapp"
+                    "ns": "webapp"                          // CHECK YOUR NAMESPACE
                 }
             }
         },
@@ -64,9 +64,9 @@
                 "module": "chaosk8s.pod.actions",
                 "func": "terminate_pods",
                 "arguments": {
-                    "label_selector": "app=fastapi",
+                    "label_selector": "app=fastapi",        // CHECK YOUR POD LABEL
                     "name_pattern": "fastapi",
-                    "ns": "webapp"
+                    "ns": "webapp"                          // CHECK YOUR NAMESPACE
                 }
             }
         }

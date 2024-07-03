@@ -4,7 +4,7 @@
     "description": "Terminate instances in two Auto Scaling Groups to observe recovery behavior and Failver RDS Instance",
     "tags": ["aws", "ec2", "auto-scaling", "rds"],
     "configuration": {
-        "aws_region": "us-east-1"           # CHECK YOUR REGION
+        "aws_region": "us-east-1"           // CHECK YOUR REGION
     },
     "steady-state-hypothesis": {
         "title": "ASG and RDS cluster are in healthy state",
@@ -18,7 +18,7 @@
                   "module": "chaosaws.asg.probes",
                   "func": "desired_equals_healthy",
                   "arguments": {
-                    "asg_names": ["web-asg"]    # CHECK YOUR WEB AUTO SCALING GROUP
+                    "asg_names": ["web-asg"]    // CHECK YOUR WEB AUTO SCALING GROUP
                   }
                 }
             },
@@ -31,7 +31,7 @@
                   "module": "chaosaws.asg.probes",
                   "func": "desired_equals_healthy",
                   "arguments": {
-                    "asg_names": ["application-asg"]    # CHECK YOUR APPLICATION AUTO SCALING GROUP
+                    "asg_names": ["application-asg"]    // CHECK YOUR APPLICATION AUTO SCALING GROUP
                   }
                 }
             },
@@ -44,7 +44,7 @@
                     "module": "chaosaws.elbv2.probes",
                     "func": "all_targets_healthy",
                     "arguments": {
-                      "tg_names": ["web-target-group"]  # CHECK YOUR WEB TARGET GROUP
+                      "tg_names": ["web-target-group"]  // CHECK YOUR WEB TARGET GROUP
                     }
                 }
             },
@@ -57,7 +57,7 @@
                     "module": "chaosaws.elbv2.probes",
                     "func": "all_targets_healthy",
                     "arguments": {
-                      "tg_names": ["application-target-group"]  # CHECK YOUR APPLICATION TARGET GROUP
+                      "tg_names": ["application-target-group"]  // CHECK YOUR APPLICATION TARGET GROUP
                     }
                 }
             },
@@ -70,7 +70,7 @@
                     "module": "chaosaws.rds.probes",
                     "func": "cluster_status",
                     "arguments": {
-                        "cluster_id": "dbcluster-01"    # CHECK YOUR RDS CLUSTER ID
+                        "cluster_id": "dbcluster-01"    // CHECK YOUR RDS CLUSTER ID
                     }
                 }
             }
@@ -86,7 +86,7 @@
               "func": "terminate_random_instances",
               "arguments": {
                 "instance_count": 1,
-                "asg_names": ["web-sg"]             # CHECK YOUR WEB AUTO SCALING GROUP
+                "asg_names": ["web-sg"]             // CHECK YOUR WEB AUTO SCALING GROUP
               }
             }
         },
@@ -99,7 +99,7 @@
               "func": "terminate_random_instances",
               "arguments": {
                 "instance_count": 1,
-                "asg_names": ["application-asg"]    # CHECK YOUR APPLICATION AUTO SCALING GROUP
+                "asg_names": ["application-asg"]    // CHECK YOUR APPLICATION AUTO SCALING GROUP
               }
             }
         },
@@ -111,8 +111,8 @@
                 "module": "chaosaws.rds.actions",
                 "func": "failover_db_cluster",
                 "arguments": {
-                    "db_cluster_identifier": "dbcluster-01",                    # CHECK YOUR RDS CLUSTER ID
-                    "target_db_instance_identifier": "dbcluster-01-instance-1"  # CHECK YOUR RDS INSTANCE ID
+                    "db_cluster_identifier": "dbcluster-01",                    // CHECK YOUR RDS CLUSTER ID
+                    "target_db_instance_identifier": "dbcluster-01-instance-1"  // CHECK YOUR RDS INSTANCE ID
                 }
             }
         }
