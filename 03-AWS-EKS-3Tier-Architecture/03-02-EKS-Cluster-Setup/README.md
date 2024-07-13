@@ -13,7 +13,7 @@
 EKS 클러스터 구성을 위해 `Elastic Kubernetes Service` 메뉴로 이동하여, `클러스터 추가` -> `생성` 을 눌러 신규 클러스터를 생성하도록 합니다.
 
 - 이름: `monitoring-course-cluster`
-- Kubernetes 버전: `1.29`
+- Kubernetes 버전: `1.30`
 - 클러스터 서비스 역할: IAM 콘솔에서 역할 생성 을 눌러 신규 역할 생성 진행. (역할 이름: `EKSClusterRole`)
 - 부트스트랩 클러스터 관리자 액세스: `클러스터 관리자 액세스 허용`
 - 클러스터 인증 모드: `EKS API 및 ConfigMap`
