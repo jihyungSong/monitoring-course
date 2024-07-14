@@ -3,11 +3,18 @@ import { check, sleep } from 'k6';
 import { randomString } from 'https://jslib.k6.io/k6-utils/1.0.0/index.js';
 
 export let options = {
-    vus: 10,
-    duration: '1m',
+    stages: [
+        { duration: '30s', target: 10 }, // Ramp-up to 10 virtual users over 30 seconds
+        { duration: '1m', target: 20 },  // Stay at 20 virtual users for 1 minute
+        { duration: '30s', target: 30 }, // Ramp-up to 30 virtual users over 30 seconds
+        { duration: '1m', target: 40 },  // Stay at 40 virtual users for 1 minute
+        { duration: '30s', target: 50 }, // Ramp-up to 50 virtual users over 30 seconds
+        { duration: '1m', target: 50 },  // Stay at 50 virtual users for 1 minute
+        { duration: '30s', target: 10 },  // Ramp-down to 10 virtual users over 30 seconds
+    ],
 };
 
-const BASE_URL = 'http://YOUR_ALB_DNS_NAME';
+const BASE_URL = 'http://{YOUR_ALB_DNS}';
 
 export default function () {
     // Randomly choose to either view the page or submit a form
