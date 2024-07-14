@@ -2,9 +2,10 @@
 
 1. EBS CSI 드라이버를 위한 IAM Role 추가
 2. EKS EBS CSI 드라이버 구성
-3. monitoring 네임 스페이스 생성
-4. Prometheus Helm repository 추가
-5. Prometheus 설치
+3. gp2 Storage Class 를 default 로 지정
+4. monitoring 네임 스페이스 생성
+5. Prometheus Helm repository 추가
+6. Prometheus 설치
 
 
 ---
@@ -21,7 +22,7 @@ eksctl create iamserviceaccount \
     --cluster monitoring-course-cluster \
     --role-name AmazonEKS_EBS_CSI_DriverRole \
     --role-only \
-    --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
+    --attach-policy-arn arn:aws:iam::{AWS_ACCOUNT_ID}:policy/service-role/AmazonEBSCSIDriverPolicy \
     --approve
 ```
 
@@ -55,7 +56,24 @@ eks-pod-identity-agent-skvrl                    1/1     Running   0          4h1
 kube-proxy-qpqbh                                1/1     Running   0          4h1m
 ```
 
-## 3. monitoring 네임 스페이스 생성
+## 3. gp2 Storage Class 를 default 로 지정
+
+스토리지 클래스를 살펴보면 아래와 같이 gp2 스토리지 클래스를 확인 가능합니다.  
+
+```
+kubectl get sc 
+NAME   PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+gp2    kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  108m
+```
+
+Prometheus 배포시 EBS 를 사용한 Volume 을 사용하는데, 해당 gp2 스토리지 클래스를 사용할 예정입니다.  
+기본 helm value 값에서 gp2 클래스 사용을 자동으로 지정하기 위해 해당 클래스를 default 로 지정하도록 합니다.  
+
+```
+kubectl patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
+
+## 4. monitoring 네임 스페이스 생성
 
 prometheus 설치를 위해 monitoring 이라는 네임스페이스를 생성 합니다.  
 
@@ -69,7 +87,7 @@ monitoring 네임스페이스가 잘 생성되었는지 확인 합니다.
 kubectl get ns
 ```
 
-## 4. Prometheus Helm repository 추가
+## 5. Prometheus Helm repository 추가
 
 Prometheus 를 Helm 으로 설치 하기 위해 관련 repository 를 추가 하도록 합니다.  
 
@@ -98,7 +116,7 @@ Update Complete. ⎈Happy Helming!⎈
 ```
 
 
-## 5. Prometheus 설치
+## 6. Prometheus 설치
 
 Helm 을 통해 Prometheus 를 설치 하도록 합니다.  
 
