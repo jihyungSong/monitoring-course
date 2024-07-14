@@ -58,14 +58,12 @@ Import 완료시, Dashboard 가 확인됩니다.
 Dashboard 는 상단 Variable 값에 따라 메트릭에서 가져오는 Query 값이 변경됩니다.  
 위 변수 값을 본인의 환경에 맞게 설정합니다. 
 
-- InfluxDB Bucket: InfluxDB 의 메트릭 값이 수집되고 있는 Bucket 을 가르킵니다. 가이드에 따른 설정과 동일하다면, `webapp` 으로 선택합니다. 
-- Web Host: Web 서버의 EC2 인스턴스 호스트명입니다. 
-- App Host: Application 서버의 EC2 인스턴스 호스트명입니다. 
+- Namespace: Web Application 이 위치한 Kubernetes Namespace 를 지정합니다.  `webapp` 으로 선택합니다. 
+- Web : Web 서버 컨테이너 이름을 지정합니다.  `web` 을 선택합니다.  
+- App : Application 서버 컨테이너 이름을 지정합니다. `fastapi` 를 선택합니다. 
 - RDS Cluster: RDS 의 Cluster Identifier 입니다. 
-- Web ALB: Web 서버 앞단의 ALB 로드밸런서의 ID 값 입니다. 
-- Web ALB Target Group: Web ALB 에서 EC2 인스턴스로 트래픽을 전달하는 Target Group 의 ID 값 입니다. 
-- App ALB: Application 서버 앞단의 Internal ALB 로드밸런서의 ID 값 입니다. 
-- App ALB Target Group: Application ALB 에서 EC2 인스턴스로 트래픽을 전달하는 Target Group 의 ID 값 입니다. 
+- Web ALB: Web 서버 앞단의 Ingress ALB 로드밸런서의 ID 값 입니다. 
+- Web ALB Target Group: Web ALB 에서 워커 노드 EC2 인스턴스로 트래픽을 전달하는 Target Group 의 ID 값 입니다. 
 
 ---
 
