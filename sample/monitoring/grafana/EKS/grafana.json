@@ -1089,8 +1089,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1099,32 +1098,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "{beta_kubernetes_io_arch=\"amd64\", beta_kubernetes_io_instance_type=\"t3.medium\", beta_kubernetes_io_os=\"linux\", container=\"web\", cpu=\"total\", eks_amazonaws_com_capacityType=\"SPOT\", eks_amazonaws_com_nodegroup=\"webapp-group\", eks_amazonaws_com_nodegroup_image=\"ami-07a876f98b5bdf972\", failure_domain_beta_kubernetes_io_region=\"us-east-1\", failure_domain_beta_kubernetes_io_zone=\"us-east-1a\", id=\"/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-pod9b3a00be_d63d_48b3_bff3_8da8e1f461fa.slice/cri-containerd-4b75c73b31e4d1ea46d1c19dee33ea060823ae36d65fce566d6632e21bae5fae.scope\", image=\"909622006439.dkr.ecr.us-east-1.amazonaws.com/web:0.0.1\", instance=\"ip-10-10-11-179.ec2.internal\", job=\"kubernetes-nodes-cadvisor\", k8s_io_cloud_provider_aws=\"f45403c39f346686c86eaa67a66598fe\", kubernetes_io_arch=\"amd64\", kubernetes_io_hostname=\"ip-10-10-11-179.ec2.internal\", kubernetes_io_os=\"linux\", name=\"4b75c73b31e4d1ea46d1c19dee33ea060823ae36d65fce566d6632e21bae5fae\", namespace=\"webapp\", node_kubernetes_io_instance_type=\"t3.medium\", pod=\"web-5fcdb95c9d-vrdx7\", topology_ebs_csi_aws_com_zone=\"us-east-1a\", topology_k8s_aws_zone_id=\"use1-az4\", topology_kubernetes_io_region=\"us-east-1\", topology_kubernetes_io_zone=\"us-east-1a\"}"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -1159,7 +1133,7 @@
           "hide": false,
           "instant": false,
           "interval": "",
-          "legendFormat": "__auto",
+          "legendFormat": "{{pod}}",
           "range": true,
           "refId": "A"
         }
@@ -1217,8 +1191,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1318,8 +1291,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1415,8 +1387,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1480,13 +1451,17 @@
             "type": "prometheus",
             "uid": "adroripkyr7cwb"
           },
-          "editorMode": "code",
-          "expr": "rate(container_network_receive_bytes_total{namespace=\"$namespace\"}[$__rate_interval])",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "container_network_receive_bytes_total{namespace=\"$namespace\"}",
+          "fullMetaSearch": false,
           "hide": false,
+          "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "{{pod}}",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         }
       ],
       "title": "WEB POD NET. RECEIVED BYTES",
@@ -1539,8 +1514,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1663,8 +1637,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1787,8 +1760,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1927,8 +1899,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2031,8 +2002,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2136,8 +2106,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2237,8 +2206,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2364,8 +2332,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2491,8 +2458,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2618,8 +2584,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2756,8 +2721,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2864,8 +2828,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2974,8 +2937,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3083,8 +3045,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3192,8 +3153,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3327,8 +3287,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3437,8 +3396,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3502,7 +3460,13 @@
     }
   ],
   "schemaVersion": 39,
-  "tags": [],
+  "tags": [
+    "prometheus",
+    "cloudwatch",
+    "kubernetes",
+    "ingress",
+    "pod"
+  ],
   "templating": {
     "list": [
       {
@@ -3591,7 +3555,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "dbcluster-01",
           "value": "dbcluster-01"
         },
@@ -3622,7 +3586,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "app/webapp-alb/380d1f9e3767d465",
           "value": "app/webapp-alb/380d1f9e3767d465"
         },
@@ -3653,7 +3617,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "targetgroup/k8s-webapp-web-7d09647d70/edaf0ad241ecd091",
           "value": "targetgroup/k8s-webapp-web-7d09647d70/edaf0ad241ecd091"
         },
@@ -3692,6 +3656,6 @@
   "timezone": "browser",
   "title": "EKS Web Application Dashboard",
   "uid": "bdqgd9bq0969se",
-  "version": 17,
+  "version": 24,
   "weekStart": ""
 }
