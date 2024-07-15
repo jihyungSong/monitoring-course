@@ -34,8 +34,8 @@ Webhook 을 동작시킬 Channel 을 선택합니다.
 이때 생성된 Webhook URL 을 Copy 해놓도록 합니다.  
 
 
-
 ## 3. Grafana Contact Point 생성
+
 Grafana 콘솔로 이동하여, 메인 메뉴에서 `Alerting` -> `Contact point` 로 이동하여, 신규 Contact Point 생성을 위해  
 `+ Add contact point` 버튼을 클릭하도록 합니다.  
 
