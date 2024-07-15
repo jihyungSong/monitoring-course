@@ -52,7 +52,7 @@ kubectl get po -n monitoring
 
 NAME                                                 READY   STATUS    RESTARTS   AGE
 grafana-69b7f5f657-r9c2h                             1/1     Running   0          1m
-...
+```
 
 
 Grafana 가 최초 설치될때 admin 패스워드가 자동으로 랜덤 생성되는데, 이 값을 확인 하는 명령어로 아래와 같습니다.  
