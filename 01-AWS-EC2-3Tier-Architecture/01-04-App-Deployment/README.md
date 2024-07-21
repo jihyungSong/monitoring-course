@@ -223,7 +223,7 @@ mkdir /etc/systemd/system/fastapi.service.d
 
 해당 디렉토리에 다운 받은 `env.conf` 파일을 복사합니다.
 ```
-cp /tmp/monitoring-course/sample/application/systemd/fastapi.service /etc/systemd/system/fastapi.service.d/
+cp /tmp/monitoring-course/sample/application/systemd/env.conf /etc/systemd/system/fastapi.service.d/
 ```
 
 복사한 env.conf 파일을 열어 값을 환경에 맞게 수정합니다.
