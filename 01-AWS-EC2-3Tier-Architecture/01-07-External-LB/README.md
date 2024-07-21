@@ -94,7 +94,7 @@ EC2 의 `Auto Scaling 그룹` 메뉴로 이동하여 `Auto Scaling 그룹 생성
 - VPC Lattice 서비스 선택 없음
 - `Elastic Load Balancer 상태 확인 켜기` 체크 후 다음 클릭
 - 원하는 크기: 2 
-- 원하는 최소 용량: 1
+- 원하는 최소 용량: 0
 - 원하는 최대 용량: 2
 - Automatic scaling: `크기 조정 정책 없음` 선택
 - 인스턴스 유지 관리 정책: `정책 없음` 선택 후 다음 클릭
