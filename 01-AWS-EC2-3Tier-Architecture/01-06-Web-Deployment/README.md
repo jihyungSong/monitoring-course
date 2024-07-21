@@ -132,7 +132,7 @@ Active (running) 상태임을 확인합니다.
 
 curl 을 통해 API 를 직접 호출해 봅니다.
 ```
-curl http://localhost:3000/transactions
+curl http://localhost:3000
 ```
 
 정상 응답이 확인 되었다면, 해당 서비스를 enable 하도록 설정합니다.
