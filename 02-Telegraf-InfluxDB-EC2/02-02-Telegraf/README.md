@@ -100,7 +100,7 @@ systemctl enable telegraf
 EC2 의 `인스턴스` 메뉴로 이동하여, `app-tier-instance` 를 선택 하고, `작업` 버튼을 눌러 `이미지 및 템플릿` -> `이미지 생성` 을 선택합니다. 
 
 - 이미지 이름: `application-image-02`
-- 이미지 설명: `Express Web Image with Telegraf`
+- 이미지 설명: `FastAPI Server Image with Telegraf`
 - 태그: 키=`Name` 값=`application-image-02`
 
 
