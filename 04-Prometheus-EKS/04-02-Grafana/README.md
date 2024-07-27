@@ -43,7 +43,7 @@ Grafana 리소스를 설치 합니다.
 value 값의 위치는 다음과 같습니다.  
 
 ```
-/monitoring-course/sample/monitoring/EKS/grafana_value.yaml
+/monitoring-course/sample/monitoring/grafana/EKS/grafana_value.yaml
 ```
 
 설치 위치는 monitoring 네임스페이스로 위치 합니다.  
