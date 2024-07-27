@@ -39,10 +39,17 @@ Update Complete. ⎈Happy Helming!⎈
 ## 2. Grafana 설치
 
 Grafana 리소스를 설치 합니다.  
+먼저, helm 실행을 위한 value 값을 참고 합니다.
+value 값의 위치는 다음과 같습니다.  
+
+```
+/monitoring-course/sample/monitoring/EKS/grafana_value.yaml
+```
+
 설치 위치는 monitoring 네임스페이스로 위치 합니다.  
 
 ```
-helm install grafana grafana/grafana --namespace monitoring
+helm install grafana grafana/grafana -f grafana_value.yaml -n monitoring
 ```
 
 monitoring 네임스페이스에서 grafana 관련 Pod 가 정상 설치 된 것을 확인 합니다.  
