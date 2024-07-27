@@ -22,7 +22,7 @@ eksctl create iamserviceaccount \
     --cluster monitoring-course-cluster \
     --role-name AmazonEKS_EBS_CSI_DriverRole \
     --role-only \
-    --attach-policy-arn arn:aws:iam::{AWS_ACCOUNT_ID}:policy/service-role/AmazonEBSCSIDriverPolicy \
+    --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
     --approve
 ```
 
