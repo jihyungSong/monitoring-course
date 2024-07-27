@@ -4,4 +4,4 @@ metadata:
   name: web-env
   namespace: webapp
 data: 
-  API_SERVER_URL={API-SERVER-URL}
+  API_SERVER_URL: {API-SERVER-URL}

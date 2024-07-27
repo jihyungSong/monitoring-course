@@ -4,6 +4,6 @@ metadata:
   name: app-env
   namespace: webapp
 data: 
-  DB_HOST={RDS-ENDPOINT-URL}
-  DB_PASSWORD={DBPASSWORD}
-  DB_NAME={DBNAME}
+  DB_HOST: "{RDS-ENDPOINT-URL}"
+  DB_PASSWORD: "{DBPASSWORD}"
+  DB_NAME: "{DBNAME}"
