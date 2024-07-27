@@ -1,0 +1,6 @@
+persistence:
+  enabled: true
+  storageClassName: "gp2"
+  accessModes:
+  - ReadWriteOnce
+  size: 10Gi
