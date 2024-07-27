@@ -43,7 +43,7 @@ fluent-bit-btxtx                                                  1/1     Runnin
 ```
 
 
-## 3. Grafana 에서 메트릭 확인
+## 3. Cloudwatch 에서 메트릭 확인
 
 Cloudwatch 메뉴로 이동하여, `인사이트` 항목에서 `Container Insights` 를 선택합니다.  
 
