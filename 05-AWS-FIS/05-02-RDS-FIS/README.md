@@ -12,7 +12,7 @@ RDS Failover 테스트를 위해, AWS 서비스인 FIS (Fault Injection Service)
 
 좌측 메뉴에 `복원력 테스트` 항목 중, `실험 템플릿` 메뉴로 이동하여, `실험 템플릿 생성` 버튼을 클릭하여 이동합니다.
 
-- 계정 타겟팅: `이 AWS 계정: XXXXXXXX` 선택 후 확인
+- 계정 타겟팅: `이 AWS 계정: {어카운트ID}` 선택 후 확인
 - 설명: RDS Failover
 - 이름: RDS Failover
 - 작업 및 목표 항목 중 `+ 작업 추가` 를 클릭 합니다.
