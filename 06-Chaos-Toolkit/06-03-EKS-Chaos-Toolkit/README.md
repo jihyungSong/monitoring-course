@@ -1,21 +1,30 @@
 # EKS 에서 Chaos Toolkit 를 활용한 카오스 실험 
 
-1. Chos Toolkit Experimental 파일 수정
-2. Pod Experimental Chaos 실험 수행
-3. Node Experimental Chaos 실험 수행
+1. kubernetes extension 설치
+2. Chos Toolkit Experimental 파일 수정
+3. Pod Experimental Chaos 실험 수행
+4. Node Experimental Chaos 실험 수행
 
 ---
-## 1. Chaos Toolkit Experimental 파일 수정
+## 1. kubernetes extension 설치
 
-sample/chaos-tookit/eks-experiments 디렉토리로 이동하여, pod_experiment.json 파일을 내 환경에 맞게 수정합니다.  
+pip 를 사용하여, kubernetes extension 패키지를 설치하도록 합니다.  
+
+```
+pip install chaostoolkit-kubernetes
+```
+
+## 2. Chaos Toolkit Experimental 파일 확인
+
+sample/chaos-tookit/eks-experiments 디렉토리로 이동하여, pod_experiment.json 파일을 확인합니다..  
 
 
-## 2. Pod Experimental Chaos 실험 수행
+## 3. Pod Experimental Chaos 실험 수행
 
 pod_experiment.json 파일을 기반으로 chaos 테스트를 수행합니다.
 
 ```
-chaos run experiment.json
+chaos run pod_experiment.json
 ```
 
 실행시 아래와 같은 결과를 확인 가능합니다.  
@@ -44,6 +53,12 @@ chaos run experiment.json
 [2024-07-03 23:29:36 INFO] Experiment ended with status: completed
 ```
 
+kubectl 을 통해 pod 가 삭제 후, 재생성되는 것을 확인합니다.  
+
+```
+kubectl get po -n webapp --watch
+```
+
 
 ## 3. Node Experimental Chaos 실험 수행
 
@@ -52,7 +67,7 @@ chaos run experiment.json
 node_experiment.json 파일을 기반으로 chaos 테스트를 수행합니다.
 
 ```
-chaos run experiment.json
+chaos run node_experiment.json
 ```
 
 실행시 아래와 같은 결과를 확인 가능합니다.  
