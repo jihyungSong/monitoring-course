@@ -18,7 +18,7 @@ const BASE_URL = 'http://{YOUR_ALB_DNS}';
 
 export default function () {
     // Randomly choose to either view the page or submit a form
-    let isFormSubmission = Math.random() < 0.5;
+    let isFormSubmission = Math.random() < 0.1;
 
     if (isFormSubmission) {
         // Perform form submission
