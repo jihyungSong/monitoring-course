@@ -6,6 +6,10 @@ PagerDuty 에 가입하고, 기본적인 설정을 구성합니다.
 1. PagerDuty 가입
 2. Phone 번호 입력
 3. Team 구성
+
+
+
+
 4. Service 구성
 5. Event Orchestration 구성
 
@@ -39,10 +43,18 @@ Contact Information 의 Phone 항목에 본인의 핸드폰 번호를 입력 후
 본인이 속할 Team 을 생성하도록 합니다.  
 People 메뉴에서 Directory - Teams 로 이동 후, `+ New Team` 버튼을 클릭하여 신규 팀을 생성합니다. 
 
-- Name: Ops
+- Name: Business
 
 팀 이름 입력 후, `Save` 버튼을 눌러 생성을 완료 합니다.  
-생성 완료한 Ops 팀을 클릭후, Edit Team 버튼을 클릭하여 Users 항목에 로그인한 본인 계정을 선택합니다.
+생성 완료한 Business 팀을 클릭후, Edit Team 버튼을 클릭하여 Users 항목에 로그인한 본인 계정을 선택합니다.
+
+
+
+
+
+
+
+
 
 ## 4. Service 구성
 
