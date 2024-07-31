@@ -1,7 +1,7 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: app-scaled
+  name: web-scaled
   namespace: webapp
   annotations:
     scaledobject.keda.sh/transfer-hpa-ownership: "true"     
@@ -31,6 +31,6 @@ spec:
   - type: prometheus
     metadata:
       serverAddress: http://prometheus-server.monitoring.svc.cluster.local
-      query: avg(rate(container_cpu_usage_seconds_total{namespace="webapp", container="fastapi"}[2m]))
+      query: avg(rate(container_cpu_usage_seconds_total{namespace="webapp", container="web"}[2m]))
       threshold: '0.1'
       unsafeSsl: "false" 
